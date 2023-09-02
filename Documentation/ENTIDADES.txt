@@ -1,0 +1,37 @@
+-PENSAMENTOS INICIAIS SOBRE AS ENTIDADES DO DOMINIO
+
+[PRODUTO]
+Um produto possui um id
+Um produto possui um nome
+Um produto tem uma descrição
+Um produto possui um preço
+Um produto pode ou não estar disponivel
+Um produto possui um tempo de preparo
+Um produto possui varias [CATEGORIAS]
+Um produto possui varios [INGREDIENTESQUANTIDADE]
+Um produto pode estar vinculado a várias [POMOÇÕES]
+
+[CATEGORIA]
+Uma categoria possui um id
+Uma categoria possui um nome
+Uma categoria está vinculada com vários [PRODUTOS]
+Uma categoria pode estar vinculada com várias [PROMOCOES]
+
+[INGREDIENTES]
+Um ingrediente possui um id
+Um ingrediente possui um nome
+Um ingrediente possui um preço
+Um ingrediente possui uma quantidade de estoque
+
+[PEDIDO]
+Um pedido possui um id
+Um pedido possui varios [PRODUTOS]
+Um pedido possui uma data de compra
+Um pedido possui um preço total
+Um pedido possui varias ou nenhuma promoção vinculada
+
+[PROMOCAO]
+(https://medium.com/@rudyzio92/net-core-using-the-specification-pattern-alongside-a-generic-repository-318cd4eea4aa)
+(https://www.youtube.com/watch?v=rdY5ElleWKY)
+(https://en.wikipedia.org/wiki/Specification_pattern)
+(https://www.codeproject.com/Articles/670115/Specification-pattern-in-Csharp)
