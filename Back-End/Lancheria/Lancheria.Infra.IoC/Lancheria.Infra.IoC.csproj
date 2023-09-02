@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Lancheria.Application\Lancheria.Application.csproj" />
+    <ProjectReference Include="..\Lancheria.Domain\Lancheria.Domain.csproj" />
+    <ProjectReference Include="..\Lancheria.Infra.Data\Lancheria.Infra.Data.csproj" />
+  </ItemGroup>
+
+</Project>
