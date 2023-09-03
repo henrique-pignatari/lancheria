@@ -4,6 +4,7 @@
 Um produto possui um id
 Um produto possui um nome
 Um produto tem uma descrição
+Um produto pode possuir uma imagem
 Um produto possui um preço
 Um produto pode ou não estar disponivel
 Um produto possui um tempo de preparo
