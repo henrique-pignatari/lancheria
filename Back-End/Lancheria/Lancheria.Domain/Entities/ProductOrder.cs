@@ -5,11 +5,11 @@ namespace Lancheria.Domain.Entities
 {
     public class ProductOrder : Entity
     {
-        public int ProductId { get; set; }
+        public int ProductId { get; private set; }
         public Product Product { get; set; }
-        public int OrderId { get; set; }
+        public int OrderId { get; private set; }
         public Order Order { get; set; }
-        public int Quantity { get; set; }
+        public int Quantity { get; private set; }
 
         public ProductOrder(int id, int productId, int orderId, int quantity) : this(productId, orderId, quantity)
         {

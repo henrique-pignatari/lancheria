@@ -5,7 +5,7 @@ namespace Lancheria.Domain.Entities
 {
     public class Category : Entity
     {
-        public string Name { get; set; }
+        public string Name { get; private set; }
         public IEnumerable<ProductCategory> ProductsCategories { get; set; }
 
         public Category(int id, string name) : this(name)

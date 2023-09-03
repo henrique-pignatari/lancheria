@@ -6,10 +6,10 @@ namespace Lancheria.Domain.Entities
 {
     public class Order : Entity
     {
-        public DateTime PurchaseDate { get; set; }
-        public decimal TotalPrice { get; set; }
-        public OrderStatus Status { get; set; }
-        public PaymentMethod PaymentMethod { get; set; }
+        public DateTime PurchaseDate { get; private set; }
+        public decimal TotalPrice { get; private set; }
+        public OrderStatus Status { get; private set; }
+        public PaymentMethod PaymentMethod { get; private set; }
         public IEnumerable<ProductOrder> ProductsOders { get; set; }
 
         public Order(int id, DateTime purchaseDate, decimal totalPrice, OrderStatus status, PaymentMethod paymentMethod) :

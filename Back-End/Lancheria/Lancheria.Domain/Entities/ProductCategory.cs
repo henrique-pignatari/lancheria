@@ -5,9 +5,9 @@ namespace Lancheria.Domain.Entities
 {
     public class ProductCategory : Entity
     {
-        public int ProductId { get; set; }
+        public int ProductId { get; private set; }
         public Product Product { get; set; }
-        public int CategoryId { get; set; }
+        public int CategoryId { get; private set; }
         public Category Category { get; set; }
 
         public ProductCategory(int id, int productId, int categoryId) : this(productId, categoryId)
