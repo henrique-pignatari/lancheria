@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using Lancheria.Domain.Entities;
 using Lancheria.Domain.Validation;
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ using static System.Collections.Specialized.BitVector32;
 
 namespace Lancheria.Domain.Tests
 {
-    public class ProductUnitTest
+    public class ProductUnitTests
     {
         [Fact(DisplayName = "Create Product With Valid State")]
         public void CreateProduct_WithValidParameters_ValidObjectState()
@@ -18,7 +19,7 @@ namespace Lancheria.Domain.Tests
             Action action = () => new Product(1, "Pruduct", "Product", "Image", 10.0m, true, 12);
 
             action.Should()
-                .NotThrow<Lancheria.Domain.Validation.DomainExceptionValidation>()
+                .NotThrow<DomainExceptionValidation>()
                 .And
                 .NotThrow<NullReferenceException>();
         }
@@ -30,7 +31,7 @@ namespace Lancheria.Domain.Tests
             Action action = () => new Product(-1, "Pruduct", "Product", "Image", 10.0m, true, 12);
 
             action.Should()
-                .Throw<Lancheria.Domain.Validation.DomainExceptionValidation>();
+                .Throw<DomainExceptionValidation>();
 
         }
         #endregion
@@ -42,7 +43,7 @@ namespace Lancheria.Domain.Tests
             Action action = () => new Product(1, null, "Product", "Image", 10.0m, true, 12);
 
             action.Should()
-                .Throw<Lancheria.Domain.Validation.DomainExceptionValidation>()
+                .Throw<DomainExceptionValidation>()
                 .WithMessage("Invalid Product Name. Product Name is required.");
         }
 
@@ -53,11 +54,11 @@ namespace Lancheria.Domain.Tests
             Action productWhiteSpaceName = () => new Product(1, "  ", "Product", "Image", 10.0m, true, 12);
 
             productEmpityName.Should()
-                .Throw<Lancheria.Domain.Validation.DomainExceptionValidation>()
+                .Throw<DomainExceptionValidation>()
                 .WithMessage("Invalid Product Name. Product Name is required.");
 
             productWhiteSpaceName.Should()
-                .Throw<Lancheria.Domain.Validation.DomainExceptionValidation>()
+                .Throw<DomainExceptionValidation>()
                 .WithMessage("Invalid Product Name. Product Name is required.");
         }
 
@@ -67,7 +68,7 @@ namespace Lancheria.Domain.Tests
             Action action = () => new Product(1, "Pr", "Product", "Image", 10.0m, true, 12);
 
             action.Should()
-                .Throw<Lancheria.Domain.Validation.DomainExceptionValidation>()
+                .Throw<DomainExceptionValidation>()
                 .WithMessage("Invalid Product Name. Product Name must have 3 or more characters.");
         }
 
@@ -76,7 +77,7 @@ namespace Lancheria.Domain.Tests
         {
             Action action = () => new Product(1, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "Product", "Image", 10.0m, true, 12);
             action.Should()
-                .Throw<Lancheria.Domain.Validation.DomainExceptionValidation>()
+                .Throw<DomainExceptionValidation>()
                 .WithMessage("Invalid Product Name. Product Name must be under 100 characters.");
         }
         #endregion
@@ -88,7 +89,7 @@ namespace Lancheria.Domain.Tests
             Action action = () => new Product(1, "Pruduct", null, "Image", 10.0m, true, 12);
 
             action.Should()
-                .Throw<Lancheria.Domain.Validation.DomainExceptionValidation>()
+                .Throw<DomainExceptionValidation>()
                 .WithMessage("Invalid Product Description. Description is required.");
         }
 
@@ -99,11 +100,11 @@ namespace Lancheria.Domain.Tests
             Action whitespaceDescription = () => new Product(1, "Pruduct", "  ", "Image", 10.0m, true, 12);
 
             emptyDescription.Should()
-                .Throw<Lancheria.Domain.Validation.DomainExceptionValidation>()
+                .Throw<DomainExceptionValidation>()
                 .WithMessage("Invalid Product Description. Description is required.");
 
             whitespaceDescription.Should()
-               .Throw<Lancheria.Domain.Validation.DomainExceptionValidation>()
+               .Throw<DomainExceptionValidation>()
                .WithMessage("Invalid Product Description. Description is required.");
         }
 
@@ -113,7 +114,7 @@ namespace Lancheria.Domain.Tests
             Action action = () => new Product(1, "Pruduct", "Pr", "Image", 10.0m, true, 12);
 
             action.Should()
-               .Throw<Lancheria.Domain.Validation.DomainExceptionValidation>()
+               .Throw<DomainExceptionValidation>()
                .WithMessage("Invalid Product Description. Description must have 3 or more characters.");
         }
 
@@ -123,7 +124,7 @@ namespace Lancheria.Domain.Tests
             Action action = () => new Product(1, "Pruduct", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus eleifend enim eu justo tristique, eu blandit nisi consectetur. Nullam nec ultrices libero. Praesent interdum consectetur tortor, vel pellentesque justo dignissim in. Fusce laoreet facilisis efficitur.", "Image", 10.0m, true, 12);
 
             action.Should()
-               .Throw<Lancheria.Domain.Validation.DomainExceptionValidation>()
+               .Throw<DomainExceptionValidation>()
                .WithMessage("Invalid Product Description. Description must be under 200 characters.");
         }
         #endregion
@@ -135,7 +136,7 @@ namespace Lancheria.Domain.Tests
             Action action = () => new Product(1, "Pruduct", "Product", null, 10.0m, true, 12);
 
             action.Should()
-                .NotThrow<Lancheria.Domain.Validation.DomainExceptionValidation>()
+                .NotThrow<DomainExceptionValidation>()
                 .And
                 .NotThrow<NullReferenceException>();
         }
@@ -147,11 +148,11 @@ namespace Lancheria.Domain.Tests
             Action whiteSpaceImage = () => new Product(1, "Pruduct", "Product", " ", 10.0m, true, 12);
 
             emptyImage.Should()
-                .Throw<Lancheria.Domain.Validation.DomainExceptionValidation>()
+                .Throw<DomainExceptionValidation>()
                 .WithMessage("Invalid Image Name. Image name cant be empty or whitespace.");
 
             whiteSpaceImage.Should()
-                .Throw<Lancheria.Domain.Validation.DomainExceptionValidation>()
+                .Throw<DomainExceptionValidation>()
                 .WithMessage("Invalid Image Name. Image name cant be empty or whitespace.");
         }
 
@@ -161,7 +162,7 @@ namespace Lancheria.Domain.Tests
             Action action = () => new Product(1, "Pruduct", "Product", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus eleifend enim eu justo tristique, eu blandit nisi consectetur. Nullam nec ultrices libero. Praesent interdum consectetur tortor, vel pellentesque justo dignissim in. Fusce laoreet facilisis efficitur.", 10.0m, true, 12);
 
             action.Should()
-                .Throw<Lancheria.Domain.Validation.DomainExceptionValidation>()
+                .Throw<DomainExceptionValidation>()
                 .WithMessage("Invalid Image name. Image name too long, mus be under 250 characters.");
         }
         #endregion
@@ -173,7 +174,7 @@ namespace Lancheria.Domain.Tests
             Action action = () => new Product(1, "Pruduct", "Product", "Image", -10.0m, true, 12);
 
             action.Should()
-                .Throw<Lancheria.Domain.Validation.DomainExceptionValidation>()
+                .Throw<DomainExceptionValidation>()
                 .WithMessage("Invalid Product Price. Price can't be negative.");
         }
         #endregion
@@ -185,8 +186,80 @@ namespace Lancheria.Domain.Tests
             Action action = () => new Product(1, "Pruduct", "Product", "Image", 10.0m, true, -12);
 
             action.Should()
-                .Throw<Lancheria.Domain.Validation.DomainExceptionValidation>()
+                .Throw<DomainExceptionValidation>()
                 .WithMessage("Invalid prepare time. Prepare time can't be negative.");
+        }
+        #endregion
+
+        #region UPDATE TESTS
+        [Fact(DisplayName = "Can't Update Product With Null Categories")]
+        public void UpdateProduct_WithNullCategories_DomainException()
+        {
+            Action action = () =>
+            {
+                var product = new Moq.Mock<Product>(1, "Product", "Description", "Image", 10.0m, true, 10).Object;
+                var ingredients = new List<ProductIngredient>();
+                ingredients.Add(new Moq.Mock<ProductIngredient>(1, 1, 1, 1.0m).Object);
+
+                product.Update(product.Name, product.Description, product.Image, product.Price, product.Available, product.PrepareTimeMinutes, null, ingredients);
+            };
+
+            action.Should()
+                .Throw<DomainExceptionValidation>()
+                .WithMessage("Invalid ProductsCategories. ProductsCategories is required.");
+        }
+
+        [Fact(DisplayName = "Can't Update With Empty Categories")]
+        public void UpdateProduct_WithEmptyCategories_DomainException()
+        {
+            Action action = () =>
+            {
+                var product = new Moq.Mock<Product>(1, "Product", "Description", "Image", 10.0m, true, 10).Object;
+                var categories = new List<ProductCategory>();
+                var ingredients = new List<ProductIngredient>();
+                ingredients.Add(new Moq.Mock<ProductIngredient>(1, 1, 1, 1.0m).Object);
+
+                product.Update(product.Name, product.Description, product.Image, product.Price, product.Available, product.PrepareTimeMinutes, categories, ingredients);
+            };
+
+            action.Should()
+                .Throw<DomainExceptionValidation>()
+                .WithMessage("Invalid ProductCategories. ProductsCategories must have at least one element.");
+        }
+
+        [Fact(DisplayName = "Can't Update With Null Ingredients")]
+        public void UpdateProduct_WithNullIngredients_DomainException()
+        {
+            Action action = () =>
+            {
+                var product = new Moq.Mock<Product>(1, "Product", "Description", "Image", 10.0m, true, 10).Object;
+                var categories = new List<ProductCategory>();
+                categories.Add(new Moq.Mock<ProductCategory>(1, 1, 1).Object);
+
+                product.Update(product.Name, product.Description, product.Image, product.Price, product.Available, product.PrepareTimeMinutes, categories, null);
+            };
+
+            action.Should()
+                .Throw<DomainExceptionValidation>()
+                .WithMessage("Invalid ProductsCategories. ProductsCategories is required.");
+        }
+
+        [Fact(DisplayName = "Can't Update With Empty Ingredients")]
+        public void UpdateProduct_WithEmptyIngredients_DomainException()
+        {
+            Action action = () =>
+            {
+                var product = new Moq.Mock<Product>(1, "Product", "Description", "Image", 10.0m, true, 10).Object;
+                var categories = new List<ProductCategory>();
+                categories.Add(new Moq.Mock<ProductCategory>(1, 1, 1).Object);
+                var ingredients = new List<ProductIngredient>();
+
+                product.Update(product.Name, product.Description, product.Image, product.Price, product.Available, product.PrepareTimeMinutes, categories, ingredients);
+            };
+
+            action.Should()
+                .Throw<DomainExceptionValidation>()
+                .WithMessage("Invalid ProductCategories. ProductsCategories must have at least one element.");
         }
         #endregion
     }
