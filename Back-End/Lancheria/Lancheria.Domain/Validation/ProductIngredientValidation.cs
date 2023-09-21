@@ -28,7 +28,7 @@ namespace Lancheria.Domain.Validation
 
             DomainExceptionValidation.When(productsIngredients.Count() < 1, "Invalid ProductCategories. ProductsCategories must have at least one element.");
 
-            var invalidQuantityProduct = productsIngredients.First(productIngredient => productIngredient.Quantity < 0);
+            var invalidQuantityProduct = productsIngredients.FirstOrDefault(productIngredient => productIngredient.Quantity < 0);
 
             DomainExceptionValidation.When(invalidQuantityProduct != null, "Invalid ProductIngredient Quantity. Quantity can't be negative.");
 
