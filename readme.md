@@ -1,7 +1,7 @@
 # LANCHERIA ![Static Badge](https://img.shields.io/badge/version-0.1-blue)
 
 Este é o "remake"/melhoria de um projeto realizado durante um processo seletivo.
-Este conterá uma aplicação para uma startup fictícia no ramo de alimentos, abrangendo fullstack web e mobile##
+Este conterá uma aplicação para uma startup fictícia no ramo de alimentos, abrangendo fullstack web e mobile
 
 1. [MOTIVAÇÃO](#1-motivação)
 2. [TECNOLOGIAS](#2-tecnologias)
@@ -9,7 +9,7 @@ Este conterá uma aplicação para uma startup fictícia no ramo de alimentos, a
 
 ## 1. MOTIVAÇÃO
 
-A motivação por trás da realização deste projeto é, além de uma comprovação de habilidades válida par o portifólio, a construção e potencial aprendizado contidos em um projeto real, possibilitando mensurar com mais precisão, desfalques e falta de conhecimento técnico.
+A motivação por trás da realização deste projeto é, além de uma comprovação de habilidades válida para o portifólio, a construção e potencial aprendizado contidos em um projeto complexo, possibilitando mensurar com mais precisão, desfalques e falta de conhecimento técnico.
 
 ## 2. TECNOLOGIAS
 
@@ -18,7 +18,7 @@ Algumas das tecnologias utilizadas no projeto
 ### 2.1 BACK-END
 
 ![.Net](https://img.shields.io/badge/.NET-5C2D91?style=for-the-badge&logo=.net&logoColor=white)
-![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white)
+![[MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white)](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
 
 ### 2.2 FRONT-END
 
