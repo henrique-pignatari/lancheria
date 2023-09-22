@@ -37,100 +37,61 @@ namespace Lancheria.Domain.Tests
         #endregion
 
         #region NAME TESTS
-        [Fact(DisplayName = "Can't Create Product With Null Name")]
-        public void CreateProduct_WithNullName_DomainException()
+        [Theory(DisplayName = "Can't Create Product With Null Or Empty Name")]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData(" ")]
+        public void CreateProduct_WithNullOrEmptyName_DomainException(string name)
         {
-            Action action = () => new Product(1, null, "Product", "Image", 10.0m, true, 12);
+            Action action = () => new Product(1, name, "Product", "Image", 10.0m, true, 12);
 
             action.Should()
                 .Throw<DomainExceptionValidation>()
                 .WithMessage("Invalid Product Name. Product Name is required.");
         }
-
-        [Fact(DisplayName = "Can't Create Product With Empity Name")]
-        public void CreateProduct_WithEmptyName_DomainException()
+        
+        [Theory(DisplayName = "Can't Create Product With Long Or Short Name")]
+        [InlineData("Pr", "Invalid Product Name. Product Name must have 3 or more characters.")]
+        [InlineData("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "Invalid Product Name. Product Name must be under 100 characters.")]
+        public void CreateProduct_WithLongOrShortName_DomainException(string name, string errorMessage)
         {
-            Action productEmpityName = () => new Product(1, "", "Product", "Image", 10.0m, true, 12);
-            Action productWhiteSpaceName = () => new Product(1, "  ", "Product", "Image", 10.0m, true, 12);
-
-            productEmpityName.Should()
-                .Throw<DomainExceptionValidation>()
-                .WithMessage("Invalid Product Name. Product Name is required.");
-
-            productWhiteSpaceName.Should()
-                .Throw<DomainExceptionValidation>()
-                .WithMessage("Invalid Product Name. Product Name is required.");
-        }
-
-        [Fact(DisplayName = "Can't Create Product With Short Name")]
-        public void CreateProduct_WithShortName_DomainException()
-        {
-            Action action = () => new Product(1, "Pr", "Product", "Image", 10.0m, true, 12);
+            Action action = () => new Product(1, name, "Product", "Image", 10.0m, true, 12);
 
             action.Should()
                 .Throw<DomainExceptionValidation>()
-                .WithMessage("Invalid Product Name. Product Name must have 3 or more characters.");
-        }
-
-        [Fact(DisplayName = "Can't Create Product With Long Name")]
-        public void CreateProduct_WithLongName_DomainException()
-        {
-            Action action = () => new Product(1, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "Product", "Image", 10.0m, true, 12);
-            action.Should()
-                .Throw<DomainExceptionValidation>()
-                .WithMessage("Invalid Product Name. Product Name must be under 100 characters.");
+                .WithMessage(errorMessage);
         }
         #endregion
 
         #region DESCRIPTION TESTS
-        [Fact(DisplayName = "Can't Create Product With Null Description")]
-        public void CreateProduct_WithNullDescription_DomainExcetion()
+        [Theory(DisplayName = "Can't Create Product With Null Or Empty Description")]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData(" ")]
+        public void CreateProduct_WithNullOrEmptyDescription_DomainExcetion(string description)
         {
-            Action action = () => new Product(1, "Pruduct", null, "Image", 10.0m, true, 12);
+            Action action = () => new Product(1, "Pruduct", description, "Image", 10.0m, true, 12);
 
             action.Should()
                 .Throw<DomainExceptionValidation>()
                 .WithMessage("Invalid Product Description. Description is required.");
         }
 
-        [Fact(DisplayName = "Can't Create Product With Empty Description")]
-        public void CreateProduct_WithEmptyDescription_DomainException()
+        [Theory(DisplayName = "Can't Create Product With Long Or Short Description")]
+        [InlineData("PR", "Invalid Product Description. Description must have 3 or more characters.")]
+        [InlineData("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus eleifend enim eu justo tristique, eu blandit nisi consectetur. Nullam nec ultrices libero. Praesent interdum consectetur tortor, vel pellentesque justo dignissim in. Fusce laoreet facilisis efficitur.", "Invalid Product Description. Description must be under 200 characters.")]
+        public void CreateProduct_WithLongOrShortDescription_DomainException(string description, string errorMessage)
         {
-            Action emptyDescription = () => new Product(1, "Pruduct", "", "Image", 10.0m, true, 12);
-            Action whitespaceDescription = () => new Product(1, "Pruduct", "  ", "Image", 10.0m, true, 12);
-
-            emptyDescription.Should()
-                .Throw<DomainExceptionValidation>()
-                .WithMessage("Invalid Product Description. Description is required.");
-
-            whitespaceDescription.Should()
-               .Throw<DomainExceptionValidation>()
-               .WithMessage("Invalid Product Description. Description is required.");
-        }
-
-        [Fact(DisplayName = "Can't Create Product With Short Description")]
-        public void CreateProduct_WithShortDescription_DomainException()
-        {
-            Action action = () => new Product(1, "Pruduct", "Pr", "Image", 10.0m, true, 12);
+            Action action = () => new Product(1, "Pruduct", description, "Image", 10.0m, true, 12);
 
             action.Should()
                .Throw<DomainExceptionValidation>()
-               .WithMessage("Invalid Product Description. Description must have 3 or more characters.");
-        }
-
-        [Fact(DisplayName = "Can't Create Product With Long Description")]
-        public void CreateProduct_WithLongDescription_DomainException()
-        {
-            Action action = () => new Product(1, "Pruduct", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus eleifend enim eu justo tristique, eu blandit nisi consectetur. Nullam nec ultrices libero. Praesent interdum consectetur tortor, vel pellentesque justo dignissim in. Fusce laoreet facilisis efficitur.", "Image", 10.0m, true, 12);
-
-            action.Should()
-               .Throw<DomainExceptionValidation>()
-               .WithMessage("Invalid Product Description. Description must be under 200 characters.");
+               .WithMessage(errorMessage);
         }
         #endregion
 
         #region IMAGE TESTS
-        [Fact(DisplayName = "Create Product With Null Image Dont Throw Exception")]
+        [Fact(DisplayName = "Create Product With Null Image Name Dont Throw Exception")]
         public void CreateProduct_WithNullImage_ValidObjectState()
         {
             Action action = () => new Product(1, "Pruduct", "Product", null, 10.0m, true, 12);
@@ -141,17 +102,14 @@ namespace Lancheria.Domain.Tests
                 .NotThrow<NullReferenceException>();
         }
 
-        [Fact(DisplayName = "Can't Create Product With Empty Name")]
-        public void CreateProduct_WithEmptyImage_DomainException()
+        [Theory(DisplayName = "Can't Create Product With Empty Image")]
+        [InlineData("")]
+        [InlineData(" ")]
+        public void CreateProduct_WithEmptyImage_DomainException(string image)
         {
-            Action emptyImage = () => new Product(1, "Pruduct", "Product", "", 10.0m, true, 12);
-            Action whiteSpaceImage = () => new Product(1, "Pruduct", "Product", " ", 10.0m, true, 12);
-
-            emptyImage.Should()
-                .Throw<DomainExceptionValidation>()
-                .WithMessage("Invalid Image Name. Image name cant be empty or whitespace.");
-
-            whiteSpaceImage.Should()
+            Action action = () => new Product(1, "Pruduct", "Product", image, 10.0m, true, 12);
+            
+            action.Should()
                 .Throw<DomainExceptionValidation>()
                 .WithMessage("Invalid Image Name. Image name cant be empty or whitespace.");
         }
