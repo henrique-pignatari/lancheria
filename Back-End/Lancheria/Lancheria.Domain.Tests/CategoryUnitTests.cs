@@ -29,49 +29,29 @@ namespace Lancheria.Domain.Tests
                 .WithMessage("Invalid Id. Id can't be negative.");
         }
 
-        [Fact(DisplayName = "Can´t Create Category With Null Name")]
-        public void CreateCategory_WithNullName_DomainException()
+        [Theory(DisplayName = "Can´t Create Category With Null Or Empty Name")]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData(" ")]
+        public void CreateCategory_WithNullName_DomainException(string name)
         {
-            Action action = () => new Category(1, null);
+            Action action = () => new Category(1, name);
 
             action.Should()
                 .Throw<DomainExceptionValidation>()
                 .WithMessage("Invalid Category Name. Name is required.");
         }
 
-        [Fact(DisplayName = "Can't Create Category With Empity or Whitespace Name")]
-        public void CreateCategory_WithEmpityName_DomainException()
+        [Theory(DisplayName = "Can't Create Category With Long Or Short Name")]
+        [InlineData("CA", "Invalid Category Name. Name must have 3 or more characters.")]
+        [InlineData("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus eleifend enim eu justo tristique, eu blandit nisi consectetur. Nullam nec ultrices libero. Praesent interdum consectetur tortor, vel pellentesque justo dignissim in. Fusce laoreet facilisis efficitur.", "Invalid Category Name. Name must be under 100 characters.")]
+        public void CreateCategory_WithLongOrShortName_DomainException(string name, string errorMessage)
         {
-            Action empityNameAction = () => new Category(1, "");
-            Action whitespaceNameAction = () => new Category(1, "  ");
-
-            empityNameAction.Should()
-                .Throw<DomainExceptionValidation>()
-                .WithMessage("Invalid Category Name. Name is required.");
-
-            whitespaceNameAction.Should()
-                .Throw<DomainExceptionValidation>()
-                .WithMessage("Invalid Category Name. Name is required.");
-        }
-
-        [Fact(DisplayName = "Can't Create Category With Short Name")]
-        public void CreateCategory_WithShortName_DomainException()
-        {
-            Action action = () => new Category(1, "Ca");
+            Action action = () => new Category(1, name);
 
             action.Should()
                 .Throw<DomainExceptionValidation>()
-                .WithMessage("Invalid Category Name. Name must have 3 or more characters.");
-        }
-
-        [Fact(DisplayName = "Can't Create Category With Long name")]
-        public void CreateCategory_WithLongDescription_DomainException()
-        {
-            Action action = () => new Category(1, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus eleifend enim eu justo tristique, eu blandit nisi consectetur. Nullam nec ultrices libero. Praesent interdum consectetur tortor, vel pellentesque justo dignissim in. Fusce laoreet facilisis efficitur.");
-
-            action.Should()
-                .Throw<DomainExceptionValidation>()
-                .WithMessage("Invalid Category Name. Name must be under 100 characters.");
+                .WithMessage(errorMessage);
         }
     }
 }
