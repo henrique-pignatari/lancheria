@@ -12,13 +12,13 @@ namespace Lancheria.Domain.Validation
         public static void ValidateStatus(OrderStatus status)
         {
             var isDefined = Enum.IsDefined(typeof(OrderStatus), status);
-            DomainExceptionValidation.When(!isDefined, "Invalid order Status. Order status is not defined.");
+            DomainExceptionValidation.When(!isDefined, "Invalid Order Status. Order Status is not defined.");
         }
 
         public static void ValidarePaymentMethod(PaymentMethod paymentMethod)
         {
             var isDefined = Enum.IsDefined(typeof(PaymentMethod), paymentMethod);
-            DomainExceptionValidation.When(!isDefined, "Invalid PaymentMethod. PaymentMethod is not defined");
+            DomainExceptionValidation.When(!isDefined, "Invalid Payment Method. Payment Method is not defined");
         }
     }
 }
